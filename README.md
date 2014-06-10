@@ -1,6 +1,6 @@
 ## Kivy file syntax highlight support for vim
 
-Credits to [thsirtman][1], i borrowed all of this code from [here][2].
+Credits to [tshirtman][1], i borrowed all of this code from [here][2].
 
 ----[ Installation: ]----------------------------------
 
