@@ -3,6 +3,10 @@
 " Maintainer:		Heyrict<github.com/heyrict>
 " Original Author:	Bram Moolenaar <Bram@vim.org>, David Bustos <bustos@caltech.edu>
 " Last Change:		2017 Aug 24
+"
+" Modified from $VIMRUNTIME/indent/python.vim.
+" To see changes, run diff.
+"
 
 " Only load this indent file when no other was loaded.
 if exists("b:did_indent")
@@ -16,7 +20,7 @@ setlocal autoindent	" indentexpr isn't much help otherwise
 setlocal softtabstop=4 " Make Backspace to 4
 
 setlocal indentexpr=GetKVIndent(v:lnum)
-setlocal indentkeys+=<:>,=elif,=except
+setlocal indentkeys+=<:>
 
 " Only define the function once.
 if exists("*GetKVIndent")
@@ -37,7 +41,7 @@ function GetKVIndent(lnum)
     if a:lnum > 1 && getline(a:lnum - 2) =~ '\\$'
       return indent(a:lnum - 1)
     endif
-    return indent(a:lnum - 1) + (exists("g:pyindent_continue") ? eval(g:pyindent_continue) : (shiftwidth() * 2))
+    return indent(a:lnum - 1) + (exists("g:kvindent_continue") ? eval(g:kvindent_continue) : (shiftwidth() * 2))
   endif
 
   " If the start of the line is in a string don't change the indent.
@@ -100,9 +104,9 @@ function GetKVIndent(lnum)
 	  \ . " synIDattr(synID(line('.'), col('.'), 1), 'name')"
 	  \ . " =~ '\\(Comment\\|Todo\\|String\\)$'")
       if pp > 0
-	return indent(plnum) + (exists("g:pyindent_nested_paren") ? eval(g:pyindent_nested_paren) : shiftwidth())
+	return indent(plnum) + (exists("g:kvindent_nested_paren") ? eval(g:kvindent_nested_paren) : shiftwidth())
       endif
-      return indent(plnum) + (exists("g:pyindent_open_paren") ? eval(g:pyindent_open_paren) : (shiftwidth() * 2))
+      return indent(plnum) + (exists("g:kvindent_open_paren") ? eval(g:kvindent_open_paren) : (shiftwidth() * 2))
     endif
     if plnumstart == p
       return indent(plnum)
