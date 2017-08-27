@@ -58,13 +58,16 @@ function GetKVIndent(lnum)
     return 0
   endif
 
-  " If the previous line was empty, dedent
+  " If the previous line was empty...
   let dif = a:lnum - plnum
-  if dif > 1
-      return indent(plnum) - shiftwidth() * (dif - 1)
+  if dif > 1 && getline(a:lnum) =~ "^ *$"
+    " If the current line isn't empty, believe the user.
+    " otherwise, dedent.
     if indent(plnum) > shiftwidth() * (dif - 1)
       " If not, recommend one dedent
       return indent(plnum) - shiftwidth() * (dif - 1)
+    else
+      return 0
     endif
   endif
 
